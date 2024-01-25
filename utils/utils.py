@@ -6,38 +6,20 @@ def download_operation(filename):
     загружает файл из operations.json
     """
     with open(filename, 'r', encoding='utf-8') as file:
-        operations = json.load(file)
-        return operations
+        data = json.load(file)
+        return data
 
 
-# def executed_transactions(data):
-#     new_item = []
-#     for item in data:
-#         if item.get('state') == 'EXECUTED':
-#             new_item.append(item)
-#
-#     new_item.sort(key=lambda x: x.get('data'), reverse=True)
-#     return new_item
-
-def sorting_by_date_of_banking_transactions(operations):
+def transfer_status(list_statuses):
     """
-    Сортировка по дате
+    Фильтр по статусу перевода выполнено
     """
-    operation_data = sorted(operations, key=lambda x: x.get('date', ""), reverse=True)
-    return operation_data
+    filter_list = []
+    for operations in list_statuses:
+        if "state" in operations and operations["state"] == "EXECUTED":
+            filter_list.append(operations)
+    return filter_list
 
 
-def completed_operations(data, score):
-    """
-    Выполненные операции (EXECUTED)
-    :return: 
-    """
-    count = 0
-    new_data = []
-    for datas in data:
-        if datas['state'].lower == 'EXECUTED'.lower():
-            new_data.append(datas)
-            count += 1
-            if count == score:
-                return new_data
-                break
+
+
