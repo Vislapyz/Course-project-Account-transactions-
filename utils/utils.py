@@ -21,5 +21,9 @@ def transfer_status(list_statuses):
     return filter_list
 
 
-
-
+def sorting_list_date(list_operations,number_operations):
+    """
+    Сортировка по дате
+    """
+    list_operations = sorted(list_operations, key=lambda x: x["date"], reverse=True)
+    return list_operations[:number_operations]
